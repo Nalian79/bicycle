@@ -16,25 +16,27 @@ class BikeShop(object):
 
     def add_bike(self, bicycle, cost, number_of_bikes=1):
         """Add a bicycle to our inventory of bikes."""
-        if not bicycle in self.bicycles:
-            self.bicyles[bicycle] = cost
-            self.inventory[bicycle] = number_of_bikes
+        if not bicycle in bicycles:
+            bicyles[bicycle] = cost
+            inventory[bicycle] = number_of_bikes
             print bicycle + " added to inventory."
         else:
             print bicycle + " is already part of inventory."
+        return bicycles, inventory
 
     def remove_bike(self, bicycle):
         """Just remove the bike from inventory."""
-        if bicycle in self.inventory:
-            if self.inventory[bicycle] > 1:
-                self.inventory[bicycle] = self.inventory[bicycle] - 1
+        if bicycle in inventory:
+            if inventory[bicycle] > 1:
+                inventory[bicycle] = inventory[bicycle] - 1
                 print "Removed 1 " + bicycle + " from inventory."
             else:
-                del self.bicycles[bicycle]
-                del self.inventory[bicycle]
+                del bicycles[bicycle]
+                del inventory[bicycle]
                 print "Removed the last " + bicycle + " from inventory."
         else:
             print bicycle + " is not in inventory."
+        return bicycles, inventory
 
     def sell_bike(self, bicycle, margin):
         """Remove bike from inventory and add margin to the profits.
@@ -42,15 +44,15 @@ class BikeShop(object):
         out, then add the margin to the profit, and delete the bike from
         inventory.
         """
-        if bicycle in self.inventory:
-            pricetag = self.inventory[bicycle] + \
-                (self.bicycles[bicycle] * int(margin))
+        if bicycle in inventory:
+            pricetag = inventory[bicycle] + (bicycles[bicycle] * int(margin))
             print "Selling the bicycle " + bicycle + " for " + str(pricetag)
-            new_profit = pricetag - self.bicycles[bicycle]
-            profit = self.profit + new_profit
+            new_profit = pricetag - bicycles[bicycle]
+            profit = profit + new_profit
             remove_bike(bicycle)
         else:
             print "I do not have " + bicycle
+        return bicycles, inventory
         
 
 class Customer(object):
@@ -65,7 +67,6 @@ class Customer(object):
         "Remove the bike cost from customer fund, then return the fund amount."
         if cost > self.fund:
             print "The bike costs more than you have in funds!"
-            break
         else:
             self.fund -= cost
             return self.fund
