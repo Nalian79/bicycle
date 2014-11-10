@@ -19,7 +19,7 @@ class BikeShop(object):
         if not bicycle in self.bicycles:
             self.bicycles[bicycle] = cost
             self.inventory[bicycle] = number_of_bikes
-            print bicycle + " added to inventory."
+            print bicycle + " added to inventory of " + str(self.name) + "."
         else:
             self.inventory[bicycle] = self.inventory[bicycle] + number_of_bikes 
             print "You now have " + str(self.inventory[bicycle]) + \
@@ -65,11 +65,12 @@ class Customer(object):
     def __init__(self, name, fund=0.0):
         self.name = name
         self.fund = fund
-        self.bicycles_owned = {}
-    def buy_bike(self, cost):
-        "Remove the bike cost from customer fund, then return the fund amount."
+        self.bicycles_owned = []
+    def buy_bike(self, cost, bike_name):
+        "Remove the bike cost from customer fund, add bike to customer's bicycle's owned."
         if cost > self.fund:
             print "The bike costs more than you have in funds!"
         else:
             self.fund -= cost
-            return self.fund
+            self.bicycles_owned.append(bike_name)
+            return self.fund, self.bicycles_owned
