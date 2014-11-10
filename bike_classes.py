@@ -8,18 +8,19 @@ class Bicycle(object):
 
 class BikeShop(object):
     """A BikeShop class for making and running your own bicycle shop."""
-    def __init__(self, name):
+    def __init__(self, name, margin=float(0.2)):
         self.name = name
         self.inventory = {}
         self.bicycles = {}
         self.profit = 0
+        self.margin = margin
 
     def add_bike(self, bicycle, cost, number_of_bikes=1):
         """Add a bicycle to our inventory of bikes."""
         if not bicycle in self.bicycles:
             self.bicycles[bicycle] = cost
             self.inventory[bicycle] = number_of_bikes
-            print bicycle + " added to inventory of " + str(self.name) + "."
+            print "Added " + str(number_of_bikes) + " " + bicycle + " bicycles to the inventory of " + str(self.name) + "."
         else:
             self.inventory[bicycle] = self.inventory[bicycle] + number_of_bikes 
             print "You now have " + str(self.inventory[bicycle]) + \
@@ -40,14 +41,18 @@ class BikeShop(object):
             print bicycle + " is not in inventory."
         return self.bicycles, self.inventory
 
-    def sell_bike(self, bicycle, margin=0.2):
+    def price_bike(self, bicycle):
+        sale_price = int(self.bicycles[bicycle]) + (int(self.bicycles[bicycle]) * self.margin)
+        return sale_price
+
+    def sell_bike(self, bicycle):
         """Remove bike from inventory and add margin to the profits.
         Calculate the total cost from the bicycle price + margin, print that
         out, then add the margin to the profit, and delete the bike from
         inventory.
         """
         if bicycle in self.inventory:
-            pricetag = int(self.bicycles[bicycle]) + (int(self.bicycles[bicycle]) * float(margin))
+            pricetag = self.price_bike(bicycle) # int(self.bicycles[bicycle]) + (int(self.bicycles[bicycle]) * self.margin)
             print "Selling the bicycle " + bicycle + " for " + str(pricetag)
             new_profit = pricetag - self.bicycles[bicycle]
             self.profit = self.profit + new_profit
