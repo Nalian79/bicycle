@@ -16,9 +16,9 @@ cube = Bicycle("Cube", cost=600, weight=10)
 # Create 3 customers
 print "Creating customers to purchase inventory... \n"
 
-jane = Customer("Jane", fund=800)
+jane = Customer("Jane", fund=1000)
 george = Customer("George", fund=500)
-billy = Customer("Billy", fund=300)
+billy = Customer("Billy", fund=200)
 
 # Create a bike Shop
 print "Creating the Bike Shop... \n"
